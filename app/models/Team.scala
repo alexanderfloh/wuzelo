@@ -16,7 +16,7 @@ case class Team(player1: Player, player2: Player) {
     val rd2a = calcRd(otherTeam.player1, now)
     val rd2b = calcRd(otherTeam.player2, now)
 
-    val p = 3 * pow(log(10) / PI * 800, 2) // 2,518
+    val p = 3 * pow(log(10) / (PI * 800), 2) // 2,518
     println(s"p: $p vs 2.518")
     val f1a = 1 / sqrt(1 + p * (pow(rd1b, 2) + pow(rd2a, 2) + pow(rd2b, 2))) // 0.720
     println(s"f1a: $f1a vs 0.720")
