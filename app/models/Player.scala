@@ -11,11 +11,12 @@ case class Player(
     rd: Int = Player.DefaultRd,
     lastRd: Int = Player.DefaultRd,
     playedGames: Int = 0,
-    lastGame: Option[DateTime] = None
+    lastGame: DateTime = Player.DefaultDate
 ) {
 }
 
 object Player {
   private val DefaultElo = 1720
   private val DefaultRd = 350
+  private val DefaultDate = new DateTime(2010, 11, 30, 0, 0)
 }
