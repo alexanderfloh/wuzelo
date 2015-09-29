@@ -2,6 +2,7 @@ package models
 
 import org.joda.time.DateTime
 import org.joda.time.Period
+import org.joda.time.Days
 
 case class Team(player1: Player, player2: Player) {
   def winsAgainst(otherTeam: Team): (Team, Team) = {
@@ -77,7 +78,7 @@ case class Team(player1: Player, player2: Player) {
   def calcRd(player: Player, now: DateTime) = {
     import Math._
 
-    val timeDiff = new Period(player.lastGame, now).toStandardDuration.getStandardDays
+    val timeDiff = Days.daysBetween(player.lastGame, now).getDays
     println(s"timeDiff: $timeDiff vs 1764")
     // 1764
     sqrt(pow(player.rd.toDouble, 2) +
