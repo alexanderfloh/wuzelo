@@ -8,8 +8,8 @@ import models._
 
 @RunWith(classOf[JUnitRunner])
 class UpdateSpec extends Specification {
-  "asdf" should {
-    "asdf" in {
+  "Application" should {
+    "update correctly for new players" in {
       val team1 = Team(Player(1, "Player1", "LastName"), Player(2, "Player2", "LastName"))
       val team2 = Team(Player(3, "Player3", "LastName"), Player(4, "Player4", "LastName"))
       
@@ -28,6 +28,17 @@ class UpdateSpec extends Specification {
       updated._1.player2.lastElo must equalTo(1720)
       updated._1.player2.rd must equalTo(329)
       updated._1.player2.lastRd must equalTo(350)
+      
+      
+      updated._2.player1.elo must equalTo(1608)
+      updated._2.player1.lastElo must equalTo(1720)
+      updated._2.player1.rd must equalTo(329)
+      updated._2.player1.lastRd must equalTo(350)
+      
+      updated._2.player2.elo must equalTo(1608)
+      updated._2.player2.lastElo must equalTo(1720)
+      updated._2.player2.rd must equalTo(329)
+      updated._2.player2.lastRd must equalTo(350)
     }
   }
 }
