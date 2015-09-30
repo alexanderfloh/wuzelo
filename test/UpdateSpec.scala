@@ -13,11 +13,7 @@ class UpdateSpec extends Specification {
       val team1 = Team(Player(1, "Player1", "LastName"), Player(2, "Player2", "LastName"))
       val team2 = Team(Player(3, "Player3", "LastName"), Player(4, "Player4", "LastName"))
       
-      println(team1)
-      println(team2)
-      
       val updated = team1.winsAgainst(team2)
-      println(updated)
       
       updated._1.player1.elo must equalTo(1832)
       updated._1.player1.lastElo must equalTo(1720)

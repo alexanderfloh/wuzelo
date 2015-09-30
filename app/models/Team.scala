@@ -9,9 +9,9 @@ case class Team(player1: Player, player2: Player) {
     import Math._
 
     val now = DateTime.now
+    
     val rd1a = calcRd(this.player1, now) // 379,913
     val rd1b = calcRd(this.player2, now)
-
     val rd2a = calcRd(otherTeam.player1, now)
     val rd2b = calcRd(otherTeam.player2, now)
 
@@ -75,8 +75,6 @@ case class Team(player1: Player, player2: Player) {
       import Math._
 
       val timeDiff = Days.daysBetween(player.lastGame, now).getDays
-      println(s"timeDiff: $timeDiff vs 1764")
-      // 1764
       sqrt(pow(player.rd.toDouble, 2) +
         3000 * log(1 + timeDiff) * (timeDiff + 2) / (timeDiff + 50))
     }
