@@ -44,3 +44,6 @@ Temporary Items
 project/project
 project/target
 target
+/bin/
+
+*.log
