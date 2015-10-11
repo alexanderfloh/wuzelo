@@ -12,10 +12,16 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "anorm" % "2.4.0",
   cache,
   ws,
-  specs2 % Test
+  specs2 % Test,
+  "org.webjars" % "requirejs" % "2.1.14-1",
+  "org.webjars" % "jquery" % "2.1.1",
+  "org.webjars" % "react" % "0.13.3",
+  "org.webjars" % "hammerjs" % "2.0.4"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+
+includeFilter in (Assets, LessKeys.less) := "*.less"
 
 // Play provides two styles of routers, one expects its actions to be injected, the
 // other, legacy style, accesses its actions statically.

@@ -1,0 +1,52 @@
+
+
+.app {
+  display: flex;
+
+  flex-flow: row wrap;
+
+  font-weight: bold;
+  text-align: center;
+}
+
+.app > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+.header {
+  background: tomato;
+}
+
+.footer {
+  background: lightgreen;
+}
+
+.players {
+  text-align: left;
+  background: deepskyblue;
+}
+
+.red-team {
+  background: gold;
+}
+
+.blue-team {
+  background: hotpink;
+}
+
+@media all and (min-width: 600px) {
+  .team { flex: 1 auto; }
+}
+
+@media all and (min-width: 800px) {
+  .players    { flex: 3 0px; }
+  .red-team { order: 1; }
+  .players    { order: 2; }
+  .blue-team { order: 3; }
+  .footer  { order: 4; }
+}
+
+body {
+  padding: 2em;
+}
