@@ -1,30 +1,9 @@
-define(['dispatcher', 'events', 'constants', 'underscore'],
-  function(AppDispatcher, EventEmitter, WuzeloConstants, _) {
+define(['dispatcher', 'events', 'constants', 'underscore', 'jquery'],
+  function(AppDispatcher, EventEmitter, WuzeloConstants, _, $) {
 
   var CHANGE_EVENT = 'change';
 
-  var _unassignedPlayers = [
-  {
-    id: 1,
-    firstName: 'Max',
-    lastName: 'Mustermann',
-  },
-  {
-    id: 2,
-    firstName: 'Moritz',
-    lastName: 'Mustermann',
-  },
-  {
-    id: 3,
-    firstName: 'Manuel',
-    lastName: 'Mustermann',
-  },
-  {
-    id: 4,
-    firstName: 'Maria',
-    lastName: 'Mustermann',
-  }
-  ];
+  var _allPlayers = [ ];
 
   var _teams = [{players: []}, {players:[]}];
 
@@ -37,14 +16,17 @@ define(['dispatcher', 'events', 'constants', 'underscore'],
     } else {
       _teams[team].players.push(player);
     }
-    _unassignedPlayers.splice(_unassignedPlayers.findIndex(function(p, index, array) {
+    _allPlayers.splice(_allPlayers.findIndex(function(p, index, array) {
       return p.id === player.id;
     }), 1);
   }
 
   var WuzeloStore = _.extend({}, EventEmitter.prototype, {
     getUnassignedPlayers: function() {
-      return _unassignedPlayers;
+      return _allPlayers.filter(function(player) {
+        return !(_teams[0].players.some(function(p) { return p.id === player.id;} ) ||
+          _teams[1].players.some(function(p) { return p.id === player.id;} ));
+      });
     },
 
     getRedTeam: function() {
@@ -53,6 +35,20 @@ define(['dispatcher', 'events', 'constants', 'underscore'],
 
     getBlueTeam: function() {
       return _teams[1];
+    },
+
+    loadPlayers: function() {
+      $.ajax({
+        url: '/players',
+        dataType: 'json',
+        success: function(data) {
+          _allPlayers = data;
+          WuzeloStore.emit(CHANGE_EVENT);
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error('/players', status, err.toString());
+        }.bind(this)
+      });
     },
 
     emitChange: function() {
@@ -83,5 +79,7 @@ define(['dispatcher', 'events', 'constants', 'underscore'],
     }
   });
 
+  WuzeloStore.loadPlayers();
+  setInterval(WuzeloStore.loadPlayers, 10 * 1000);
   return WuzeloStore;
 });

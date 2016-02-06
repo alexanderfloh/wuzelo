@@ -28,11 +28,38 @@ object Player {
   val DefaultDate = new DateTime(2010, 11, 30, 0, 0)
   
   def all = DB.withConnection { implicit c =>
-    SQL"select id, firstName, lastName, elo, lastElo, rd, lastRd, playedGames, lastGame from players".as(player*)  
+    SQL"select id, firstName, lastName, elo, lastElo, rd, lastRd, playedGames, lastGame from players ORDER BY elo DESC".as(player*)  
   }
   
   def byId(id: Long) = DB.withConnection { implicit c =>
     SQL"select id, firstName, lastName, elo, lastElo, rd, lastRd, playedGames, lastGame from players where id=$id".as(player.singleOpt)  
+  }
+  
+  def add(player: Player) = DB.withConnection { implicit c => 
+    SQL"""insert into players values (
+        DEFAULT,
+        ${player.firstName},
+        ${player.lastName},
+        ${player.elo},
+        ${player.lastElo},
+        ${player.rd},
+        ${player.lastRd},
+        ${player.playedGames},
+        ${player.lastGame.toDate()}
+        )""".executeInsert()
+  }
+  
+  def updateScores(players: List[Player]) = DB.withTransaction { implicit t => 
+    players.foreach { player => 
+      SQL"""update players SET 
+        elo=${player.elo}, 
+        lastElo=${player.lastElo},
+        rd=${player.rd},
+        lastRd=${player.lastRd},
+        playedGames=${player.playedGames},
+        lastGame=${player.lastGame.toDate()}
+        WHERE id = ${player.id}""".executeUpdate()  
+    }  
   }
   
   def player = {

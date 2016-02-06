@@ -2,11 +2,8 @@
  
 # --- !Ups
 
-CREATE SEQUENCE player_id_seq;
-CREATE SEQUENCE game_id_seq;
-
 CREATE TABLE players (
-	id integer NOT NULL DEFAULT nextval('player_id_seq'),
+	id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	firstName varchar(255),
 	lastName varchar(255),
 	elo integer,
@@ -18,11 +15,12 @@ CREATE TABLE players (
 );
 
 CREATE TABLE games (
-	team1player1 integer NOT NULL,
-	team1player2 integer NOT NULL,
-	team2player1 integer NOT NULL,
-	team2player2 integer NOT NULL,
-	winner tinyint NOT NULL
+	id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	team1player1 INTEGER NOT NULL,
+	team1player2 INTEGER NOT NULL,
+	team2player1 INTEGER NOT NULL,
+	team2player2 INTEGER NOT NULL,
+	timestamp TIMESTAMP NOT NULL
 );
 
 
@@ -31,5 +29,3 @@ CREATE TABLE games (
 DROP TABLE games;
 DROP TABLE players;
 
-DROP SEQUENCE player_id_seq;
-DROP SEQUENCE game_id_seq;

@@ -9,7 +9,7 @@ define(['react', 'hammer', 'actions'],
       var elementToDrag = this.refs.playerNode.getDOMNode();
       // deltaX tracks the distance dragged along the x-axis since the initial touch.
       elementToDrag.style.left = event.deltaX + 'px';
-      if(Math.abs(event.deltaX) > 50) {
+      if(Math.abs(event.deltaX) > 150) {
         WuzeloActions.joinTeam(this.props.player, 0);
         //resetElement(event);
       }
@@ -20,14 +20,14 @@ define(['react', 'hammer', 'actions'],
       var elementToDrag = this.refs.playerNode.getDOMNode();
       // deltaX tracks the distance dragged along the x-axis since the initial touch.
       elementToDrag.style.left = event.deltaX + 'px';
-      if(Math.abs(event.deltaX) > 50) {
+      if(Math.abs(event.deltaX) > 150) {
         WuzeloActions.joinTeam(this.props.player, 1);
         //resetElement(event);
       }
     },
 
     resetElement: function(event) {
-      var elementToReset = event.target;
+      var elementToReset = this.refs.playerNode.getDOMNode();
       elementToReset.style.left = 0;
     },
 
@@ -53,7 +53,7 @@ define(['react', 'hammer', 'actions'],
     },
 
     render: function() {
-      return (<li ref="playerNode">{this.props.player.firstName} {this.props.player.lastName}</li>);
+      return (<li className="player" ref="playerNode">{this.props.player.firstName} {this.props.player.lastName} {this.props.player.elo}</li>);
     },
   });
   return Player;
