@@ -49,25 +49,35 @@ define(['react', 'player', 'store'],
 
       return (
         <div className="app">
-          <div className="header">header</div>
+          <div className="header">WuzelELO</div>
           <ul className="players">
             {playerNodes}
           </ul>
           <div className="red-team team">
-            <h1>red team</h1>
+            <h1 className="unselectable">red team</h1>
             {redTeamNodes}
             <form action={redWinAction} method="post">
               <input type="submit" value="win" />
             </form>
           </div>
           <div className="blue-team team">
-            <h1>blue team</h1>
+            <h1 className="unselectable">blue team</h1>
             {blueTeamNodes}
             <form action={blueWinAction} method="post">
               <input type="submit" value="win" />
             </form>
           </div>
-          <div className="footer">footer</div>
+          <div className="footer">
+            Add Player
+            <form action="/addPlayer" method="post">
+              <input type="text" name="firstName" placeholder="First Name"></input>
+              <input type="text" name="lastName" placeholder="Last Name"></input>
+              <input type="number" name="elo" placeholder="ELO (optional)"></input>
+              <input type="number" name="rd" placeholder="RD (optional)"></input>
+              <input type="number" name="gamesPlayed" placeholder="Games Played (optional)"></input>
+              <input type="submit"></input>
+            </form>
+          </div>
         </div>);
     },
 

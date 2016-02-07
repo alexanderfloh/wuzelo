@@ -53,7 +53,9 @@ define(['react', 'hammer', 'actions'],
     },
 
     render: function() {
-      return (<li className="player" ref="playerNode">{this.props.player.firstName} {this.props.player.lastName} {this.props.player.elo}</li>);
+      return (<li className="player" ref="playerNode">
+        {this.props.player.firstName} {this.props.player.lastName} {this.props.player.elo} {this.props.player.rd}
+      </li>);
     },
   });
   return Player;

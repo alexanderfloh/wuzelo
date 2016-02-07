@@ -35,7 +35,8 @@ object Player {
     SQL"select id, firstName, lastName, elo, lastElo, rd, lastRd, playedGames, lastGame from players where id=$id".as(player.singleOpt)  
   }
   
-  def add(player: Player) = DB.withConnection { implicit c => 
+  def add(player: Player) = DB.withConnection { implicit c =>
+    //TODO: this should return the updated player object with an `id` set.
     SQL"""insert into players values (
         DEFAULT,
         ${player.firstName},
